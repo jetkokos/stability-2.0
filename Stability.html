@@ -53,7 +53,7 @@
             thickness : '',
             height: '',
             corrosion: '',
-            modulus: '',
+            youngModulus: '',
             yieldStress: ''
 
         },
@@ -66,7 +66,7 @@
             calculateAllowedPressure() {
                 let thicknessToDiameterRatio = (this.thickness - this.corrosion)/this.diameter;
                 let criticalLength = 1.2 * this.diameter * Math.pow((1/thicknessToDiameterRatio), 0.5);
-                let criticalStress = 1.3 * this.modulus * (this.diameter/this.height) * Math.pow(thicknessToDiameterRatio, 1.5);
+                let criticalStress = 1.3 * this.youngModulus * (this.diameter/this.height) * Math.pow(thicknessToDiameterRatio, 1.5);
                 let criticalPressure = 2 * criticalStress * thicknessToDiameterRatio;
                 return criticalPressure;
                  

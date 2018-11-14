@@ -1,0 +1,16 @@
+.wrapper{
+	padding: 15px;
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.calc {
+	width: 500px;
+}
+
+.calc-block {
+	width: 350px;
+	margin-top: 10px;
+	display: flex;
+	justify-content: space-between;
+}

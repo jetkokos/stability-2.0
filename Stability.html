@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/styles.css" rel="stylesheet">
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <div class="app">
+        <div class="calc">
+            <h1>Расчет на устойчивость</h1>
+            <h3>Цилиндрические оболочки под наружным давлением</h2>
+            <p>Введите параметры оболочки:</p>
+            <div class="calc-block">
+                <p>Диаметр, мм</p>
+                <input type="text" v-model="diameter">
+            </div> 
+            <div class="calc-block">
+                <p>Толщина, мм</p>
+                <input type="text" v-model="thickness">
+            </div>
+            <div class="calc-block">
+                <p>Высота, мм</p>
+                <input type="text" v-model="height">
+            </div>
+            <div class="calc-block">
+                <p>Коррозия, мм</p>
+                <input type="text" v-model="corrosion">
+            </div>
+            <div class="calc-block">
+                <p>Модуль упругости, МПа</p>
+                <input type="text" v-model="modulus">
+            </div>
+            <div class="calc-block">
+                <p>Предел текучести, МПа</p>
+                <input type="text" v-model="yieldStress">
+            </div>
+            <button class="btn">Вычислить</button>
+            <p v-if="calculateAllowedPressure">Результат: {{calculateAllowedPressure}} МПа</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    let app = new Vue({
+        el: '.app',
+        data: {
+            diameter: '',
+            thickness : '',
+            height: '',
+            corrosion: '',
+            modulus: '',
+            yieldStress: ''
+
+        },
+        methods: {
+          
+           
+        },
+
+        computed: {
+            calculateAllowedPressure() {
+                let thicknessToDiameterRatio = (this.thickness - this.corrosion)/this.diameter;
+                let criticalLength = 1.2 * this.diameter * Math.pow((1/thicknessToDiameterRatio), 0.5);
+                let criticalStress = 1.3 * this.modulus * (this.diameter/this.height) * Math.pow(thicknessToDiameterRatio, 1.5);
+                let criticalPressure = 2 * criticalStress * thicknessToDiameterRatio;
+                return criticalPressure;
+                 
+
+            }
+           
+        }
+        
+        
+    });
+    
+</script>
+</body>
+</html>
